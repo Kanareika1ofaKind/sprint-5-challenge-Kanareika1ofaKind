@@ -2,7 +2,7 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
   // 👇 WORK WORK BELOW THIS LINE 👇
   //-- footer
   const footer = document.querySelector('footer')
-  const currentYear = new Date().getFullYear()
+  const currentYear = 2023 // new Date().getFullYear()
   footer.textContent = `© BLOOM INSTITUTE OF TECHNOLOGY ${currentYear}`
   //-- end footer
 
@@ -27,42 +27,42 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
   })
 
 
-  combinedData.map((obj) => {
+  combinedData.forEach((obj) => {
 
     let card = document.createElement('div')
     card.classList.add('card')
 
     let person = document.createElement('h3')
-    person.innerHTML = obj.fullName
+    person.textContent = obj.fullName
 
     let personEmail = document.createElement('div')
-    personEmail.innerHTML = obj.email
+    personEmail.textContent = obj.email
 
     let mentors = document.createElement('h4')
     mentors.classList.add('closed')
-    mentors.innerHTML = 'Mentors'
+    mentors.textContent = 'Mentors'
 
 
 
     let mentorList = document.createElement('ul')
 
-    obj.mentors.map((x) => {
+    obj.mentors.forEach((x) => {
 
       let li = document.createElement('li')
-      li.innerHTML = x
+      li.textContent = x
 
-      mentorList.append(li)
+      mentorList.appendChild(li)
 
     })
 
     card.append(person, personEmail, mentors, mentorList)
 
-    cards.append(card)
+    cards.appendChild(card)
   })
 
 
   if (combinedData.length > 0) {
-    info.innerHTML = 'No learner is selected'
+    info.textContent = 'No learner is selected'
   }
 
 
@@ -91,8 +91,8 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
 
 
       let h3 = item.querySelector('h3')
-      h3.innerHTML = item.className.includes('selected') ? `${combinedData[idx].fullName}, id ${combinedData[idx].id}` : `${combinedData[idx].fullName}`
-      info.innerHTML = item.className.includes('selected') ? `The selected learner is ${combinedData[idx].fullName}` : `No learner is selected`
+      h3.textContent = item.className.includes('selected') ? `${combinedData[idx].fullName}, id ${combinedData[idx].id}` : `${combinedData[idx].fullName}`
+      info.textContent = item.className.includes('selected') ? `The selected learner is ${combinedData[idx].fullName}` : `No learner is selected`
 
       function removeFocus(i) {
 
