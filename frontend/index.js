@@ -1,6 +1,10 @@
 async function sprintChallenge5() { // Note the async keyword, in case you wish to use `await` inside sprintChallenge5
   // 👇 WORK WORK BELOW THIS LINE 👇
-
+  //-- footer
+  const footer = document.querySelector('footer')
+  const currentYear = new Date().getFullYear()
+  footer.textContent = `© BLOOM INSTITUTE OF TECHNOLOGY ${currentYear}`
+  //-- end footer
 
 
   const cards = document.querySelector('.cards')
@@ -29,21 +33,23 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
     card.classList.add('card')
 
     let person = document.createElement('h3')
-    person.innerText = obj.fullName
+    person.innerHTML = obj.fullName
 
     let personEmail = document.createElement('div')
-    personEmail.innerText = obj.email
+    personEmail.innerHTML = obj.email
 
     let mentors = document.createElement('h4')
     mentors.classList.add('closed')
-    mentors.innerText = 'Mentors'
+    mentors.innerHTML = 'Mentors'
+
+
 
     let mentorList = document.createElement('ul')
 
     obj.mentors.map((x) => {
 
       let li = document.createElement('li')
-      li.innerText = x
+      li.innerHTML = x
 
       mentorList.append(li)
 
@@ -54,30 +60,57 @@ async function sprintChallenge5() { // Note the async keyword, in case you wish 
     cards.append(card)
   })
 
+
   if (combinedData.length > 0) {
-    info.innerText = 'No learner is selected'
+    info.innerHTML = 'No learner is selected'
   }
+
+
+
 
   const allCards = document.querySelectorAll('.card')
 
-  // console.log(allCards)
-allCards.forEach(card => {
-  card.addEventListener('click', () => {
-    removeFocus()
-    card.classList.add('selected')
-  })
-  removeFocus = () => {
-    allCards.forEach(card => {
-      card.classList.remove('selected')
-    })
-  }
-})
+  console.log(allCards)
 
-  //-- footer
-  const footer = document.querySelector('footer')
-  const currentYear = new Date().getFullYear()
-  footer.textContent = `© BLOOM INSTITUTE OF TECHNOLOGY ${currentYear}`
-  //-- end footer
+  allCards.forEach((item, idx) => {
+
+    item.addEventListener('click', function (e) {
+
+      removeFocus(idx)
+      if (['open', 'closed'].indexOf(e.target.className) > -1) {
+
+        let h4 = item.querySelector('h4')
+        h4.classList.toggle('open')
+        h4.classList.toggle('closed')
+
+        item.classList.add('selected')
+      }
+      else {
+        item.classList.toggle('selected')
+      }
+
+
+      let h3 = item.querySelector('h3')
+      h3.innerHTML = item.className.includes('selected') ? `${combinedData[idx].fullName}, id ${combinedData[idx].id}` : `${combinedData[idx].fullName}`
+      info.innerHTML = item.className.includes('selected') ? `The selected learner is ${combinedData[idx].fullName}` : `No learner is selected`
+
+      function removeFocus(i) {
+
+        allCards.forEach((item, index) => {
+          if (i != index) {
+            item.classList.remove('selected')
+          }
+
+        })
+
+
+      }
+
+    })
+
+
+
+  })
 
 
   // 👆 WORK WORK ABOVE THIS LINE 👆
